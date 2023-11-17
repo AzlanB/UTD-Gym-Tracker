@@ -1,0 +1,12 @@
+body {
+    /* Adjust background properties as needed */
+    background-size: cover;
+    /* Set margin and padding to zero to remove any default spacing */
+    margin: 0;
+    padding: 0;
+    /* Fallback color if the image is not available or not fully covering */
+    background: #f0f0f0 url(https://cms.concept3d.com/map/lib/image-cache/i.php?mapId=1772&image=1772/utdallas_56872232_Medium.jpg&w=900&h=508&r=1) no-repeat fixed center center;
+}
+
+
+/* https://cms.concept3d.com/map/lib/image-cache/i.php?mapId=1772&image=1772/utdallas_56872232_Medium.jpg&w=900&h=508&r=1 */
