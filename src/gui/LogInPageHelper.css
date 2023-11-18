@@ -15,7 +15,7 @@ body{
     height: auto;
 }
 
-.wrapper{
+.loginWrapper{
     font-family: "system-ui";
     width: 420px;
     height: auto;
@@ -27,12 +27,12 @@ body{
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-.wrapper h1{
+.loginWrapper h1{
     font-size: 36px;
     text-align: center;
 }
 
-.wrapper .input-box{
+.loginWrapper .input-box{
     position: relative;
     width: 98%;
     height: 50px;
@@ -64,7 +64,7 @@ body{
 
 }
 
-.wrapper .remember-forgot{
+.loginWrapper .remember-forgot{
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
@@ -85,7 +85,7 @@ body{
     text-decoration: underline;
 
 }
-.wrapper .btn {
+.loginWrapper .btn {
     width: 100%;
     height: 45px;
     background: darkblue;
@@ -98,7 +98,7 @@ body{
     color: lightblue;
     font-weight: 600;
 }
-.wrapper .register-link{
+.loginWrapper .register-link{
     font-size: 14.5px;
     text-align: center;
     margin-top: 20px;
