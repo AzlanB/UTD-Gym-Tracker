@@ -2,21 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTD Gym Tracker - Log in Page</title>
+
+    <title>UTD Gym Tracker</title>
+    <link rel="stylesheet" href="LogInPageHelper.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-<div style="width: 2000px; height: 1600px; position: relative; background: #404040; border-radius: 2px; overflow: hidden; border: 1px rgba(255, 255, 255, 0.10) solid">
-    <img style="width: 1920px; height: 1080px; left: 0px; top: 0px; position: absolute; box-shadow: 4px 4px 4px; border: 1px black solid; filter: blur(4px)" src="https://cms.concept3d.com/map/lib/image-cache/i.php?mapId=1772&image=1772/utdallas_56872232_Medium.jpg&w=900&h=508&r=1" />
-    <div style="width: 576px; height: 743px; left: 479px; top: 140px; position: absolute; background: linear-gradient(180deg, #216F1F 0%, #EA6200 85%, #E25F00 87%, rgba(255, 107.10, 0, 0) 100%); border-radius: 10px"></div>
-    <div style="left: 500px; top: 282px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word">Last Name</div>
-    <div style="left: 500px; top: 408px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word">UT Dallas Email</div>
-    <div style="left: 495px; top: 165px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word">First Name</div>
-    <div style="left: 500px; top: 527px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word">Last Name</div>
-    <div style="left: 497px; top: 653px; position: absolute; color: white; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 36px; word-wrap: break-word">Confrim Password</div>
-    <div style="width: 230px; height: 44px; left: 662px; top: 77px; position: absolute; color: #EA6200; font-size: 24px; font-family: Wavefont; font-weight: 400; line-height: 36px; word-wrap: break-word">Create An Account</div>
+<!-- Log in screen -->
+<div class="wrapper">
+    <form action="">
+        <h1>Login</h1>
+        <!-- UserName input  -->
+        <div class="input-box">
+            <input type="text" placeholder="Username"
+            required>
+            <i class='bx bx-user-circle'></i>
+        </div>
+        <!-- Password Input -->
+        <div class="input-box">
+            <input type="password" placeholder="Password"
+                   required>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <!-- Remember me and forgot password buttons -->
+        <div class="remember-forgot">
+            <label><input type="checkbox"> Remember me</label>
+            <a href ="#">Forgot password? </a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+
+        <!-- register button -->
+        <div class="register-link">
+            <p>
+                Don't have an account?
+                <a href="#"> Register
+                </a>
+            </p>
+        </div>
+    </form>
 </div>
 
+
 </body>
+
 </html>

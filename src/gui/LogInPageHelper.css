@@ -1,10 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
 {
 margin: 0;
 padding: 0;
 box-sizing: border-box;
-font-family: "Poppins", sans-serif;
 }
 
 body{
@@ -13,13 +10,21 @@ body{
     align-items: center;
     min-height: 100vh;
     background: url("https://cms.concept3d.com/map/lib/image-cache/i.php?mapId=1772&image=1772/utdallas_56872232_Medium.jpg&w=900&h=508&r=1")no-repeat no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(2px);
+    height: auto;
 }
+
 .wrapper{
+    font-family: "system-ui";
     width: 420px;
-    background: linear-gradient(to bottom right, orangered, darkgreen);
+    height: auto;
+    background: radial-gradient(ellipse at top, orangered , green);
+    filter: opacity(90%);
     color: white;
     border-radius: 15px;
     padding: 30px 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 .wrapper h1{
@@ -43,7 +48,7 @@ body{
     border: 2px solid rgba(255,255,255, 0.2);
     border-radius: 40px;
     font-size: 16px;
-    color: lightblue;
+    color: white;
     padding: 2px 0px 0px 20px;
 }
 .input-box input::placeholder{
