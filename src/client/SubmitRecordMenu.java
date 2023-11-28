@@ -5,18 +5,15 @@ import java.util.*;
 import javax.swing.*;
 
 public class SubmitRecordMenu {
-    SubmitRecordMenu(String username){
-        /*
-        HashSet<String> categories = Database.getCategories();
-        String[] categoriesArray = new String[categories.size()];
-        Iterator<String> s = categories.iterator();
-        int i = 0;
-        while (s.hasNext())
-            categoriesArray[i++] = s.next();
-        Arrays.sort(categoriesArray);
+    SubmitRecordMenu(String username, PrintWriter toServer, BufferedReader fromServer) throws IOException {
+        toServer.println("getCategories");
+        String[] categories = new String[Integer.parseInt(fromServer.readLine())];
+        for (int i = 0; i < categories.length; i++)
+            categories[i] = fromServer.readLine();
+        Arrays.sort(categories);
 
         JLabel categoryPrompt = new JLabel("Select Category");
-        JComboBox<String> categoryList = new JComboBox<>(categoriesArray);
+        JComboBox<String> categoryList = new JComboBox<>(categories);
         categoryPrompt.setBounds(50, 10, 300, 20);
         categoryList.setBounds(50, 30, 300, 20);
 
@@ -32,7 +29,23 @@ public class SubmitRecordMenu {
         responseMessage.setBounds(50,190,300,20);
         submitButton.setBounds(125,160,150,20);
         submitButton.addActionListener(e -> {
-            String response = Database.submitRecord(username, categoryList.getItemAt(categoryList.getSelectedIndex()), description.getText(), proof.getText());
+            String response;
+            if (username.contains("\n"))
+                response = "Error Validating Username";
+            else if (categoryList.getItemAt(categoryList.getSelectedIndex()).contains("\n"))
+                response = "Invalid Category";
+            else if (description.getText().contains("\n"))
+                response = "Invalid Description";
+            else if (proof.getText().contains("\n"))
+                response = "Invalid Proof";
+            else {
+                toServer.println("submitRecord");
+                toServer.println(username);
+                toServer.println(categoryList.getItemAt(categoryList.getSelectedIndex()));
+                toServer.println(description.getText());
+                toServer.println(proof.getText());
+                try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
+            }
             responseMessage.setText(response);
             if (response.equals("Record Submitted")) {
                 responseMessage.setForeground(Color.GREEN);
@@ -60,6 +73,5 @@ public class SubmitRecordMenu {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        */
     }
 }

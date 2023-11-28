@@ -20,19 +20,19 @@ public class Database {
     }
 
     public static String submitRecord(String username, String category, String description, String proof){
-        if (!usernames.contains(username) || username.contains("\n"))
+        if (!usernames.contains(username))
             return "Error Validating Username";
-        if (!categories.contains(category) || category.contains("\n"))
+        if (!categories.contains(category))
             return "Invalid Category";
-        if (description.length() < 5 || description.length() > 1000 || description.contains("\n"))
+        if (description.length() < 5 || description.length() > 1000)
             return "Invalid Description";
-        if (!(proof.contains("youtube.com") || proof.contains("youtu.be") || proof.contains("drive.google.com")) || proof.contains("\n"))
+        if (!(proof.contains("youtube.com") || proof.contains("youtu.be") || proof.contains("drive.google.com")))
             return "Invalid Proof";
 
         try {
-            File file = new File("Submitted Records.txt");
+            File file = new File("src\\server\\Submitted Records.txt");
             file.createNewFile();
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Submitted Records.txt", true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath(), true));
             writer.append(username);
             writer.append("\n");
             writer.append(category);
