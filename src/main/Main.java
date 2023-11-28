@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Specify the path to your HTML file
-            String htmlFilePath = "C:\\Users\\Rossw\\IdeaProjects\\SE-3354-Project\\src\\gui\\LogInPage.html";
+            String htmlFilePath = "src\\gui\\LogInPage.html";
 
             // Open the HTML file in the default web browser
             openInBrowser(htmlFilePath);
