@@ -41,7 +41,7 @@ public class Database {
             writer.append(username);
             writer.append("\n");
             writer.append(hashedPassword);
-            writer.append("\n");
+            writer.append("\n\n");
             writer.close();
 
             accounts.put(username, hashedPassword);
@@ -80,7 +80,7 @@ public class Database {
             writer.append(description);
             writer.append("\n");
             writer.append(proof);
-            writer.append("\n");
+            writer.append("\n\n");
             writer.close();
             return "Record Submitted";
         } catch (Exception e) {
