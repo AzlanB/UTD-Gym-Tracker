@@ -2,6 +2,8 @@ package client;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class RegistrationMenu {
     RegistrationMenu(PrintWriter toServer, BufferedReader fromServer) {
@@ -47,10 +49,17 @@ public class RegistrationMenu {
             else if (!pwd.equals(retype.getText()))
                 response = "Retyped password must match password";
             else {
-                toServer.println("register");
-                toServer.println(username.getText());
-                toServer.println(pwd);
-                try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
+                try {
+                    String hashedPassword = username.getText() + pwd;
+                    MessageDigest mD = MessageDigest.getInstance("SHA-256");
+                    mD.update(hashedPassword.getBytes());
+                    hashedPassword = new String(mD.digest());
+
+                    toServer.println("register");
+                    toServer.println(username.getText());
+                    toServer.println(hashedPassword);
+                    try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
+                } catch (NoSuchAlgorithmException ex) { response = "Error Hashing Password, Try Again Later"; }
             }
             responseMessage.setText(response);
             if (response.equals("Registration Successful")) {
