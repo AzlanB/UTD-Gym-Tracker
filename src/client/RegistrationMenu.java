@@ -1,9 +1,10 @@
 package client;
 import java.io.*;
+import java.awt.*;
 import javax.swing.*;
 
 public class RegistrationMenu {
-    RegistrationMenu(PrintWriter toServer, BufferedReader fromServer) throws IOException {
+    RegistrationMenu(PrintWriter toServer, BufferedReader fromServer) {
         JLabel usernamePrompt = new JLabel("Enter Username (UTD Email)"), passwordPrompt = new JLabel("Enter Password"), retypePrompt = new JLabel("Retype Password");
         JTextField username = new JTextField(), password = new JTextField(), retype = new JTextField();
         usernamePrompt.setBounds(50, 10, 300, 20);
@@ -15,35 +16,51 @@ public class RegistrationMenu {
 
         JLabel responseMessage = new JLabel("", SwingConstants.CENTER);
         JButton registerButton = new JButton("Register");
-        responseMessage.setBounds(50,190,300,20);
+        responseMessage.setBounds(0,190,400,20);
         registerButton.setBounds(125,160,150,20);
         registerButton.addActionListener(e -> {
-            /*
             String response;
-            if (categoryList.getItemAt(categoryList.getSelectedIndex()).contains("\n"))
-                response = "Invalid Category";
-            else if (description.getText().contains("\n"))
-                response = "Invalid Description";
-            else if (proof.getText().contains("\n"))
-                response = "Invalid Proof";
+            String pwd = password.getText();
+            responseMessage.setBounds(0,190,400,20);
+            if (username.getText().contains("\n"))
+                response = "Invalid Username";
+            else if (!username.getText().endsWith("@utdallas.edu"))
+                response = "Username must be a UTD email";
+            else if (pwd.contains("\n"))
+                response = "Invalid Password";
+            else if (pwd.length() < 8)
+                response = "Password must be at least 8 characters";
+            else if (pwd.length() > 32)
+                response = "Password must be at most 32 characters";
+            else if (!(pwd.matches(".*[0-9].*") && pwd.matches(".*[a-z].*") && pwd.matches(".*[A-Z].*"))) {
+                response = "Password missing: ";
+                if (!pwd.matches(".*[0-9].*"))
+                    response += "Number, ";
+                if (!pwd.matches(".*[a-z].*"))
+                    response += "Lowercase Letter, ";
+                if (!pwd.matches(".*[A-Z].*"))
+                    response += "Uppercase Letter, ";
+                response = response.substring(0, response.length() - 2);
+                if (response.length() == 60)
+                    responseMessage.setBounds(-5,190,400,20);
+            }
+            else if (!pwd.equals(retype.getText()))
+                response = "Retyped password must match password";
             else {
-                toServer.println("submitRecord");
-                toServer.println(categoryList.getItemAt(categoryList.getSelectedIndex()));
-                toServer.println(description.getText());
-                toServer.println(proof.getText());
+                toServer.println("register");
+                toServer.println(username.getText());
+                toServer.println(pwd);
                 try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
             }
             responseMessage.setText(response);
-            if (response.equals("Record Submitted")) {
+            if (response.equals("Registration Successful")) {
                 responseMessage.setForeground(Color.GREEN);
-                categoryList.setEnabled(false);
-                description.setEnabled(false);
-                proof.setEnabled(false);
-                submitButton.setEnabled(false);
+                username.setEnabled(false);
+                password.setEnabled(false);
+                retype.setEnabled(false);
             }
             else
                 responseMessage.setForeground(Color.RED);
-            */
         });
 
         JFrame frame = new JFrame("Register");

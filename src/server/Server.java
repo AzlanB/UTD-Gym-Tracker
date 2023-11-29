@@ -24,7 +24,7 @@ public class Server {
                 Socket socket = server.accept();
                 new Thread(new ClientHandler(socket)).start();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) { e.printStackTrace(); }
         server.close();
     }
 
@@ -42,11 +42,17 @@ public class Server {
 
                 String line;
                 while ((line = fromClient.readLine()) != null) {
-                    if (line.equals("login")) {
-                        loggedIn = true;
-                        username = fromClient.readLine();
-                        String hashedPassword = fromClient.readLine();
-                        // TODO: Login Validation
+                    if (line.equals("register")) {
+                        toClient.println(Database.register(fromClient.readLine(), fromClient.readLine()));
+                    }
+                    else if (line.equals("login")) {
+                        String uN = fromClient.readLine();
+                        String response = Database.login(uN, fromClient.readLine());
+                        if (response.equals("Login Successful")) {
+                            loggedIn = true;
+                            username = uN;
+                        }
+                        toClient.println(response);
                     }
                     else if (line.equals("getCategories")) {
                         HashSet<String> categories = Database.getCategories();

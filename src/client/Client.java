@@ -37,7 +37,7 @@ public class Client {
         // Temporary usage, can be changed
         Scanner console = new Scanner(System.in);
         String line;
-        while (!(line = console.nextLine()).equals("exit")){
+        while (!(line = console.nextLine()).equals("exit")) {
             if (line.equals("register")) {
                 new RegistrationMenu(toServer, fromServer);
             }
@@ -54,6 +54,7 @@ public class Client {
                 toServer.println("login");
                 toServer.println(username);
                 toServer.println(hashedPassword);
+                System.out.println(fromServer.readLine());
             }
             else if (line.equals("submitRecord")) {
                 new SubmitRecordMenu(toServer, fromServer);

@@ -19,6 +19,16 @@ public class Database {
         return categories;
     }
 
+    public static String register(String username, String hashedPassword){
+        // TODO: Registration
+        return "Error Registering, Try Again Later";
+    }
+
+    public static String login(String username, String hashedPassword) {
+        // TODO: Login Validation
+        return "Login Successful";
+    }
+
     public static String submitRecord(String username, String category, String description, String proof){
         if (!usernames.contains(username))
             return "Error Validating Username";
