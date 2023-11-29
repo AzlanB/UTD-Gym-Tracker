@@ -1,9 +1,9 @@
 package client;
 import java.io.*;
 import java.net.*;
-import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Client {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {

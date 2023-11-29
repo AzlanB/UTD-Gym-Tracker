@@ -54,11 +54,14 @@ public class RegistrationMenu {
                     MessageDigest mD = MessageDigest.getInstance("SHA-256");
                     mD.update(hashedPassword.getBytes());
                     hashedPassword = new String(mD.digest());
-
-                    toServer.println("register");
-                    toServer.println(username.getText());
-                    toServer.println(hashedPassword);
-                    try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
+                    if (hashedPassword.contains("\n"))
+                        response = "Invalid Password";
+                    else {
+                        toServer.println("register");
+                        toServer.println(username.getText());
+                        toServer.println(hashedPassword);
+                        try { response = fromServer.readLine(); } catch (IOException ex) { response = "Error Getting Response From Server"; }
+                    }
                 } catch (NoSuchAlgorithmException ex) { response = "Error Hashing Password, Try Again Later"; }
             }
             responseMessage.setText(response);

@@ -5,17 +5,8 @@ import java.util.*;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        Scanner usernamesFile = new Scanner(new File("src\\server\\usernames.txt"));
-        HashSet<String> usernames = new HashSet<>();
-        while (usernamesFile.hasNextLine())
-            usernames.add(usernamesFile.nextLine());
-        Database.setUsernames(usernames);
-
-        Scanner categoriesFile = new Scanner(new File("src\\server\\categories.txt"));
-        HashSet<String> categories = new HashSet<>();
-        while (categoriesFile.hasNextLine())
-            categories.add(categoriesFile.nextLine());
-        Database.setCategories(categories);
+        Database.loadAccounts();
+        Database.loadCategories();
 
         ServerSocket server = new ServerSocket(4444);
         server.setReuseAddress(true);
