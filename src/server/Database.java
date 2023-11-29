@@ -20,8 +20,11 @@ public class Database {
 
     public static void loadCategories() throws FileNotFoundException {
         Scanner file = new Scanner(new File("src\\server\\Categories.txt"));
-        while (file.hasNextLine())
-            categories.add(file.nextLine());
+        while (file.hasNextLine()) {
+            String line = file.nextLine();
+            if (!line.equals(""))
+                categories.add(file.nextLine());
+        }
     }
 
     public static HashSet<String> getCategories() {
