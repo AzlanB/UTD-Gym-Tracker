@@ -1,10 +1,12 @@
 package client;
 import java.io.*;
 import java.net.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import java.security.MessageDigest;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         if (args.length < 1){
             System.out.println("Please provide ip address as an argument");
             return;
@@ -36,16 +38,22 @@ public class Client {
         Scanner console = new Scanner(System.in);
         String line;
         while (!(line = console.nextLine()).equals("exit")){
-            if (line.equals("login")){
+            if (line.equals("register")) {
+                new RegistrationMenu(toServer, fromServer);
+            }
+            else if (line.equals("login")) {
                 System.out.print("Enter Username: ");
                 String username = console.nextLine();
                 System.out.print("Enter Password: ");
-                String password = console.nextLine();
-                // TODO: Hash Password Before Sending
+
+                String hashedPassword = username + console.nextLine();
+                MessageDigest mD = MessageDigest.getInstance("SHA-256");
+                mD.update(hashedPassword.getBytes());
+                hashedPassword = new String(mD.digest());
 
                 toServer.println("login");
                 toServer.println(username);
-                toServer.println(password);
+                toServer.println(hashedPassword);
             }
             else if (line.equals("submitRecord")) {
                 new SubmitRecordMenu(toServer, fromServer);

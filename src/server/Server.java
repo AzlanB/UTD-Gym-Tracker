@@ -1,5 +1,4 @@
 package server;
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -46,7 +45,7 @@ public class Server {
                     if (line.equals("login")) {
                         loggedIn = true;
                         username = fromClient.readLine();
-                        String password = fromClient.readLine();
+                        String hashedPassword = fromClient.readLine();
                         // TODO: Login Validation
                     }
                     else if (line.equals("getCategories")) {
@@ -63,7 +62,7 @@ public class Server {
                     }
                     // TODO: Register more inputs and send appropriate outputs to client
                 }
-            } catch (IOException e) { e.printStackTrace(); }
+            } catch (IOException ignored) {}
             if (toClient != null)
                 toClient.close();
             if (fromClient != null) {
