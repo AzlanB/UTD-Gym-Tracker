@@ -37,16 +37,29 @@ public class Server {
             try {
                 toClient = new PrintWriter(socket.getOutputStream(), true);
                 fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                boolean loggedIn = false;
+                String username = null;
+
                 String line;
                 while ((line = fromClient.readLine()) != null) {
-                    if (line.equals("getCategories")){
+                    if (line.equals("login")) {
+                        loggedIn = true;
+                        username = fromClient.readLine();
+                        String password = fromClient.readLine();
+                        // TODO: Login Validation
+                    }
+                    else if (line.equals("getCategories")) {
                         HashSet<String> categories = Database.getCategories();
                         toClient.println(categories.size());
                         for (String category : categories)
                             toClient.println(category);
                     }
                     else if (line.equals("submitRecord")) {
-                        toClient.println(Database.submitRecord(fromClient.readLine(), fromClient.readLine(), fromClient.readLine(), fromClient.readLine()));
+                        if (loggedIn)
+                            toClient.println(Database.submitRecord(username, fromClient.readLine(), fromClient.readLine(), fromClient.readLine()));
+                        else
+                            toClient.println("Please login");
                     }
                     // TODO: Register more inputs and send appropriate outputs to client
                 }

@@ -5,7 +5,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class SubmitRecordMenu {
-    SubmitRecordMenu(String username, PrintWriter toServer, BufferedReader fromServer) throws IOException {
+    SubmitRecordMenu(PrintWriter toServer, BufferedReader fromServer) throws IOException {
         toServer.println("getCategories");
         String[] categories = new String[Integer.parseInt(fromServer.readLine())];
         for (int i = 0; i < categories.length; i++)
@@ -30,9 +30,7 @@ public class SubmitRecordMenu {
         submitButton.setBounds(125,160,150,20);
         submitButton.addActionListener(e -> {
             String response;
-            if (username.contains("\n"))
-                response = "Error Validating Username";
-            else if (categoryList.getItemAt(categoryList.getSelectedIndex()).contains("\n"))
+            if (categoryList.getItemAt(categoryList.getSelectedIndex()).contains("\n"))
                 response = "Invalid Category";
             else if (description.getText().contains("\n"))
                 response = "Invalid Description";
@@ -40,7 +38,6 @@ public class SubmitRecordMenu {
                 response = "Invalid Proof";
             else {
                 toServer.println("submitRecord");
-                toServer.println(username);
                 toServer.println(categoryList.getItemAt(categoryList.getSelectedIndex()));
                 toServer.println(description.getText());
                 toServer.println(proof.getText());

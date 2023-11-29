@@ -36,9 +36,19 @@ public class Client {
         Scanner console = new Scanner(System.in);
         String line;
         while (!(line = console.nextLine()).equals("exit")){
-            if (line.equals("submitRecord")) {
+            if (line.equals("login")){
                 System.out.print("Enter Username: ");
-                new SubmitRecordMenu(console.nextLine(), toServer, fromServer);
+                String username = console.nextLine();
+                System.out.print("Enter Password: ");
+                String password = console.nextLine();
+                // TODO: Hash Password Before Sending
+
+                toServer.println("login");
+                toServer.println(username);
+                toServer.println(password);
+            }
+            else if (line.equals("submitRecord")) {
+                new SubmitRecordMenu(toServer, fromServer);
             }
             // TODO: More Code
         }
