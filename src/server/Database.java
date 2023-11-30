@@ -7,7 +7,7 @@ public class Database {
     private static final HashMap<String, String> accounts = new HashMap<>();
     private static final HashMap<String, ArrayList<String[]>> recordHistories = new HashMap<>(), leaderboards = new HashMap<>();
     private static final ArrayList<String[]> submittedRecords = new ArrayList<>();
-    private static boolean reviewingRecord = false, accessingApprovedRecords = false, accessingSubmittedRecords = false, accessingAccounts = false;
+    private static boolean reviewingRecord = false, accessingRecords = false, accessingAccounts = false;
 
     public static void loadAccounts() throws InterruptedException {
         while (accessingAccounts)
@@ -25,25 +25,22 @@ public class Database {
     }
 
     public static void loadSubmittedRecords() throws InterruptedException {
-        while (accessingSubmittedRecords)
+        while (accessingRecords)
             Thread.sleep(100);
         try {
-            accessingSubmittedRecords = true;
+            accessingRecords = true;
             Scanner file = new Scanner(new File("src\\server\\Submitted Records.txt"));
             while (file.hasNextLine()) {
                 String line = file.nextLine();
                 if (!line.equals(""))
                     submittedRecords.add(new String[] {line, file.nextLine(), file.nextLine(), file.nextLine()});
             }
-            accessingSubmittedRecords = false;
-        } catch (FileNotFoundException e) { accessingSubmittedRecords = false; }
+            accessingRecords = false;
+        } catch (FileNotFoundException e) { accessingRecords = false; }
     }
 
-    public static void loadApprovedRecords() throws InterruptedException {
-        while (accessingApprovedRecords)
-            Thread.sleep(100);
+    public static void loadApprovedRecords() {
         try {
-            accessingApprovedRecords = true;
             Scanner file = new Scanner(new File("src\\server\\Approved Records.txt"));
             while (file.hasNextLine()) {
                 String username = file.nextLine();
@@ -58,8 +55,7 @@ public class Database {
                     leaderboards.get(category).add(new String[] { username, description, proof });
                 }
             }
-            accessingApprovedRecords = false;
-        } catch (FileNotFoundException e) { accessingApprovedRecords = false; }
+        } catch (FileNotFoundException ignored) {}
     }
 
     public static ArrayList<String[]> getRecordHistory(String username) {
@@ -142,10 +138,10 @@ public class Database {
             return "Invalid Description";
         if (!(proof.contains("youtube.com") || proof.contains("youtu.be") || proof.contains("drive.google.com")))
             return "Invalid Proof";
-        if (accessingSubmittedRecords)
+        if (accessingRecords)
             return "Error Submitting Record, Try Again Later";
         try {
-            accessingSubmittedRecords = true;
+            accessingRecords = true;
             File file = new File("src\\server\\Submitted Records.txt");
             file.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath(), true));
@@ -158,12 +154,12 @@ public class Database {
             writer.append(proof);
             writer.append("\n\n");
             writer.close();
-            accessingSubmittedRecords = false;
+            accessingRecords = false;
 
             submittedRecords.add(new String[] {username, category, description, proof});
             return "Record Submitted";
         } catch (Exception e) {
-            accessingSubmittedRecords = false;
+            accessingRecords = false;
             return "Error Submitting Record, Try Again Later";
         }
     }
@@ -175,8 +171,16 @@ public class Database {
         return submittedRecords.get(0);
     }
 
-    public static void reviewRecord(String review, int score) {
+    public static void reviewRecord(String review, int score) throws InterruptedException {
+        if (review.equals("accept") || review.equals("deny")) {
+            while (accessingRecords)
+                Thread.sleep(100);
+            try {
+                accessingRecords = true;
+                // TODO: Finish Method
+                accessingRecords = false;
+            } catch (Exception e) { accessingRecords = false; }
+        }
         reviewingRecord = false;
-        // TODO: Finish Method
     }
 }

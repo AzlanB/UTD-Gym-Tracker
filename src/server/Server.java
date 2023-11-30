@@ -66,9 +66,33 @@ public class Server {
                         else
                             toClient.println("Please login");
                     }
+                    else if (line.equals("reviewRecord")) {
+                        if (loggedIn) {
+                            if (Database.isAdmin(username)) {
+                                String[] record = Database.reviewRecord();
+                                if (record != null) {
+                                    toClient.println("Submitted Record:");
+                                    for (int i = 0; i < 4; i++)
+                                        toClient.println(record[i]);
+
+                                    String review = fromClient.readLine();
+                                    int score = 0;
+                                    if (review.equals("accept"))
+                                        score = Integer.parseInt(fromClient.readLine());
+                                    Database.reviewRecord(review, score);
+                                }
+                                else
+                                    toClient.println("No submitted records or record review in progress");
+                            }
+                            else
+                                toClient.println("User lacks admin permissions");
+                        }
+                        else
+                            toClient.println("Please login");
+                    }
                     // TODO: Register more inputs and send appropriate outputs to client
                 }
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {} catch (InterruptedException e) { e.printStackTrace(); }
             if (toClient != null)
                 toClient.close();
             if (fromClient != null) {
