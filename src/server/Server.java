@@ -4,9 +4,12 @@ import java.net.*;
 import java.util.*;
 
 public class Server {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Database.loadAdmins();
         Database.loadAccounts();
         Database.loadCategories();
+        Database.loadApprovedRecords();
+        Database.loadSubmittedRecords();
 
         ServerSocket server = new ServerSocket(4444);
         server.setReuseAddress(true);
@@ -54,6 +57,12 @@ public class Server {
                     else if (line.equals("submitRecord")) {
                         if (loggedIn)
                             toClient.println(Database.submitRecord(username, fromClient.readLine(), fromClient.readLine(), fromClient.readLine()));
+                        else
+                            toClient.println("Please login");
+                    }
+                    else if (line.equals("isAdmin")) {
+                        if (loggedIn)
+                            toClient.println(Database.isAdmin(username));
                         else
                             toClient.println("Please login");
                     }
