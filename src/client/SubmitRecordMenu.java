@@ -32,9 +32,9 @@ public class SubmitRecordMenu {
             String response;
             if (categoryList.getItemAt(categoryList.getSelectedIndex()).contains("\n"))
                 response = "Invalid Category";
-            else if (description.getText().contains("\n"))
+            else if (description.getText().contains("\n") || description.getText().length() < 1)
                 response = "Invalid Description";
-            else if (proof.getText().contains("\n"))
+            else if (proof.getText().contains("\n") || proof.getText().length() < 1)
                 response = "Invalid Proof";
             else {
                 toServer.println("submitRecord");

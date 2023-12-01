@@ -24,7 +24,7 @@ public class RegistrationMenu {
             String response;
             String pwd = password.getText();
             responseMessage.setBounds(0,190,400,20);
-            if (username.getText().contains("\n"))
+            if (username.getText().contains("\n") || username.getText().length() < 1)
                 response = "Invalid Username";
             else if (!username.getText().endsWith("@utdallas.edu"))
                 response = "Username must be a UTD email";
@@ -70,6 +70,7 @@ public class RegistrationMenu {
                 username.setEnabled(false);
                 password.setEnabled(false);
                 retype.setEnabled(false);
+                registerButton.setEnabled(false);
             }
             else
                 responseMessage.setForeground(Color.RED);
