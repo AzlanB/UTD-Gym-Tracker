@@ -8,7 +8,7 @@ public class HomeMenu {
         leaderboards.setBounds(40, 10, 180, 20);
         history.setBounds(40, 40, 180, 20);
         submit.setBounds(40, 70, 180, 20);
-        leaderboards.addActionListener(e -> new LeaderboardsMenu(toServer, fromServer));
+        leaderboards.addActionListener(e -> { try { new LeaderboardsMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); } });
         history.addActionListener(e -> { try { new HistoryMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); } });
         submit.addActionListener(e -> { try { new SubmitRecordMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); } });
 

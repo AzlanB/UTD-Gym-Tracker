@@ -11,12 +11,12 @@ public class HistoryMenu {
             int size = Integer.parseInt(fromServer.readLine());
             String[][] history = new String[size][3];
             for (int i = 0; i < size; i++)
-                history[i] = new String[]{ fromServer.readLine(), fromServer.readLine(), fromServer.readLine() };
+                history[i] = new String[] { fromServer.readLine(), fromServer.readLine(), fromServer.readLine() };
             JTable table = new JTable(history, new String[] { "Category", "Description", "Proof" });
 
             JScrollPane pane = new JScrollPane();
-            pane.setViewportView(table);
             pane.setBounds(0, 0, 390, 245);
+            pane.setViewportView(table);
 
             frame.add(pane);
             frame.setSize(400, 275);
