@@ -36,10 +36,10 @@ public class Server {
 
                 String line;
                 while ((line = fromClient.readLine()) != null) {
-                    if (line.equals("register")) {
+                    if (line.equals("register")) { // Format: "register", username, hashedPassword -> String success/error
                         toClient.println(Database.register(fromClient.readLine(), fromClient.readLine()));
                     }
-                    else if (line.equals("login")) {
+                    else if (line.equals("login")) { // Format: "login", username, hashedPassword -> String success/error
                         String uN = fromClient.readLine();
                         String response = Database.login(uN, fromClient.readLine());
                         if (response.equals("Login Successful")) {
@@ -48,25 +48,26 @@ public class Server {
                         }
                         toClient.println(response);
                     }
-                    else if (line.equals("getCategories")) {
+                    else if (line.equals("getCategories")) { // Format: "getCategories" -> int amount, Category, Category, Category... etc.
                         HashSet<String> categories = Database.getCategories();
                         toClient.println(categories.size());
                         for (String category : categories)
                             toClient.println(category);
                     }
-                    else if (line.equals("submitRecord")) {
+                    else if (line.equals("submitRecord")) { // Format: "submitRecord", category, description, proof -> String success/error
+                        String category = fromClient.readLine(), description = fromClient.readLine(), proof = fromClient.readLine();
                         if (loggedIn)
-                            toClient.println(Database.submitRecord(username, fromClient.readLine(), fromClient.readLine(), fromClient.readLine()));
+                            toClient.println(Database.submitRecord(username, category, description, proof));
                         else
                             toClient.println("Please login");
                     }
-                    else if (line.equals("isAdmin")) {
+                    else if (line.equals("isAdmin")) { // Format: "isAdmin" -> boolean isAdmin / String "Please login"
                         if (loggedIn)
                             toClient.println(Database.isAdmin(username));
                         else
                             toClient.println("Please login");
                     }
-                    else if (line.equals("reviewRecord")) {
+                    else if (line.equals("reviewRecord")) { // Format "reviewRecord" -> String error / String success, username, category, description, proof -> "accept", int score / "deny" -> void
                         if (loggedIn) {
                             if (Database.isAdmin(username)) {
                                 String[] record = Database.reviewRecord();

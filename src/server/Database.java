@@ -1,6 +1,7 @@
 package server;
 import java.io.*;
 import java.util.*;
+import java.nio.file.*;
 
 public class Database {
     private static final HashSet<String> categories = new HashSet<>(), admins = new HashSet<>();
@@ -20,6 +21,7 @@ public class Database {
                 if (!line.equals(""))
                     accounts.put(line, file.nextLine());
             }
+            file.close();
             accessingAccounts = false;
         } catch (FileNotFoundException e) { accessingAccounts = false; }
     }
@@ -35,6 +37,7 @@ public class Database {
                 if (!line.equals(""))
                     submittedRecords.add(new String[] {line, file.nextLine(), file.nextLine(), file.nextLine()});
             }
+            file.close();
             accessingRecords = false;
         } catch (FileNotFoundException e) { accessingRecords = false; }
     }
@@ -46,15 +49,27 @@ public class Database {
                 String username = file.nextLine();
                 if (!username.equals("")) {
                     String category = file.nextLine(), description = file.nextLine(), proof = file.nextLine();
+                    int score = Integer.parseInt(file.nextLine());
+
                     if (!recordHistories.containsKey(username))
                         recordHistories.put(username, new ArrayList<>());
                     recordHistories.get(username).add(new String[] { category, description, proof });
 
                     if (!leaderboards.containsKey(category))
                         leaderboards.put(category, new ArrayList<>());
-                    leaderboards.get(category).add(new String[] { username, description, proof });
+                    ArrayList<String[]> leaderboard = leaderboards.get(category);
+                    boolean found = false;
+                    for (int i = 0; i < leaderboard.size() && !found; i++) {
+                        if (Integer.parseInt(leaderboard.get(i)[3]) < score) {
+                            found = true;
+                            leaderboard.add(i, new String[] { username, description, proof, Integer.toString(score) });
+                        }
+                    }
+                    if (!found)
+                        leaderboard.add(new String[] { username, description, proof, Integer.toString(score) });
                 }
             }
+            file.close();
         } catch (FileNotFoundException ignored) {}
     }
 
@@ -77,6 +92,7 @@ public class Database {
             if (!line.equals(""))
                 categories.add(line);
         }
+        file.close();
     }
 
     public static HashSet<String> getCategories() {
@@ -90,6 +106,7 @@ public class Database {
             if (!line.equals(""))
                 admins.add(line);
         }
+        file.close();
     }
 
     public static boolean isAdmin(String username) {
@@ -177,7 +194,65 @@ public class Database {
                 Thread.sleep(100);
             try {
                 accessingRecords = true;
-                // TODO: Finish Method
+                String[] record = submittedRecords.remove(0);
+                if (review.equals("accept")) {
+                    File file = new File("src\\server\\Approved Records.txt");
+                    file.createNewFile();
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(file.getPath(), true));
+                    writer.append(record[0]);
+                    writer.append("\n");
+                    writer.append(record[1]);
+                    writer.append("\n");
+                    writer.append(record[2]);
+                    writer.append("\n");
+                    writer.append(record[3]);
+                    writer.append("\n");
+                    writer.append(Integer.toString(score));
+                    writer.append("\n\n");
+                    writer.close();
+
+                    if (!recordHistories.containsKey(record[0]))
+                        recordHistories.put(record[0], new ArrayList<>());
+                    recordHistories.get(record[0]).add(new String[] { record[1], record[2], record[3] });
+
+                    if (!leaderboards.containsKey(record[1]))
+                        leaderboards.put(record[1], new ArrayList<>());
+                    ArrayList<String[]> leaderboard = leaderboards.get(record[1]);
+                    boolean found = false;
+                    for (int i = 0; i < leaderboard.size() && !found; i++) {
+                        if (Integer.parseInt(leaderboard.get(i)[3]) < score) {
+                            found = true;
+                            leaderboard.add(i, new String[] { record[0], record[2], record[3], Integer.toString(score) });
+                        }
+                    }
+                    if (!found)
+                        leaderboard.add(new String[] { record[0], record[2], record[3], Integer.toString(score) });
+                }
+
+                BufferedWriter write = new BufferedWriter(new FileWriter("src\\server\\temp.txt", true));
+                Scanner read = new Scanner(new File("src\\server\\Submitted Records.txt"));
+                boolean first = true;
+                while (read.hasNextLine()) {
+                    String line = read.nextLine();
+                    if (!line.equals("")) {
+                        String category = read.nextLine(), description = read.nextLine(), proof = read.nextLine();
+                        if (first)
+                            first = false;
+                        else {
+                            write.append(line);
+                            write.append("\n");
+                            write.append(category);
+                            write.append("\n");
+                            write.append(description);
+                            write.append("\n");
+                            write.append(proof);
+                            write.append("\n\n");
+                        }
+                    }
+                }
+                write.close();
+                read.close();
+                Files.move(Paths.get("src\\server\\temp.txt"), Paths.get("src\\server\\Submitted Records.txt"), StandardCopyOption.REPLACE_EXISTING);
                 accessingRecords = false;
             } catch (Exception e) { accessingRecords = false; }
         }

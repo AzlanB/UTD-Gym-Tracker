@@ -59,6 +59,25 @@ public class Client {
             else if (line.equals("submitRecord")) {
                 new SubmitRecordMenu(toServer, fromServer);
             }
+            else if (line.equals("reviewRecord")) {
+                toServer.println("reviewRecord");
+                String response = fromServer.readLine();
+                System.out.println(response);
+                if (response.equals("Submitted Record:")) {
+                    for (int i = 0; i < 4; i++)
+                        System.out.println(fromServer.readLine());
+                    System.out.print("Accept or Deny: ");
+                    String review = console.nextLine().toLowerCase();
+                    if (review.equals("accept")) {
+                        System.out.print("Enter Score: ");
+                        String score = console.nextLine();
+                        toServer.println(review);
+                        toServer.println(score);
+                    }
+                    else
+                        toServer.println(review);
+                }
+            }
             // TODO: More Code
         }
 
