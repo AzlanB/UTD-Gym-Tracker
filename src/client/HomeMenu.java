@@ -9,7 +9,7 @@ public class HomeMenu {
         history.setBounds(40, 40, 180, 20);
         submit.setBounds(40, 70, 180, 20);
         leaderboards.addActionListener(e -> new LeaderboardsMenu(toServer, fromServer));
-        history.addActionListener(e -> new HistoryMenu(toServer, fromServer));
+        history.addActionListener(e -> { try { new HistoryMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); } });
         submit.addActionListener(e -> { try { new SubmitRecordMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); } });
 
         JFrame frame = new JFrame("UTD Gym Tracker");
