@@ -1,0 +1,58 @@
+{
+margin :0;
+padding: 0;
+font-family: 'poppins', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, orangered, darkgreen);
+    background-size: cover;
+    backdrop-filter: blur(2px);
+    height: auto;
+}
+.HomePageWrapper{
+    font-family: "system-ui";
+    width: 500px;
+    height: 560px;
+    background: radial-gradient(ellipse at center, darkgreen, darkgreen, darkgreen);
+    filter: opacity(100%);
+    color: white;
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 0 20px rgba(0,0,0,1);
+    padding-left: 0;
+
+}
+
+.HomePageWrapper h1{
+    font-size: 36px;
+    text-align: center;
+    align-content: center;
+    padding-left: 50px;
+}
+
+.HomePageWrapper .btnMenu .btn{
+    align-items: center;
+    align-content: center;
+    height: 75px;
+    margin: 20px ;
+    width: 100%;
+    color: lightblue;
+    background: blue;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+    font-size: 22px;
+    border-color: lightblue;
+}
+.HomePageWrapper.btnMenu{
+    padding-left: 0;
+    align-content: center;
+}
+ul{
+    padding-left: 0;
+}
+

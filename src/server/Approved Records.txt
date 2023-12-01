@@ -1,0 +1,36 @@
+testUser@utdallas.edu
+Bench Press
+testing
+youtube.com
+1
+
+testUser@utdallas.edu
+Bench Press
+testing2
+youtube.com
+2
+
+testUser@utdallas.edu
+Squat
+testing3
+youtube.com
+3
+
+testUser@utdallas.edu
+Deadlift
+testing4
+youtube.com
+4
+
+testUser@utdallas.edu
+Bench Press
+testing5
+youtube.com
+5
+
+axb210107@utdallas.edu
+Bench Press
+ranking testing
+youtube.com
+3
+
