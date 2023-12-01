@@ -67,9 +67,9 @@ public class RegistrationMenu {
             responseMessage.setText(response);
             if (response.equals("Registration Successful")) {
                 responseMessage.setForeground(Color.GREEN);
-                username.setEnabled(false);
-                password.setEnabled(false);
-                retype.setEnabled(false);
+                username.setEditable(false);
+                password.setEditable(false);
+                retype.setEditable(false);
                 registerButton.setEnabled(false);
             }
             else

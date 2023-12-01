@@ -17,7 +17,7 @@ public class HomeMenu {
         if (fromServer.readLine().equals("true")) {
             JButton review = new JButton("Review a Record");
             review.setBounds(40, 100, 180, 20);
-            review.addActionListener(e -> new ReviewRecordMenu(toServer, fromServer));
+            review.addActionListener(e -> { try { new ReviewRecordMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); }});
             frame.add(review);
             frame.setSize(270, 160);
         }

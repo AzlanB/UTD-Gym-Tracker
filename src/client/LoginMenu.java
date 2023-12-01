@@ -45,9 +45,6 @@ public class LoginMenu {
             responseMessage.setText(response);
             if (response.equals("Login Successful")) {
                 responseMessage.setForeground(Color.GREEN);
-                username.setEnabled(false);
-                password.setEnabled(false);
-                loginButton.setEnabled(false);
                 try { new HomeMenu(toServer, fromServer); } catch (IOException ex) { throw new RuntimeException(ex); }
             }
             else

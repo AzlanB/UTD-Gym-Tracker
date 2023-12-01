@@ -107,7 +107,7 @@ public class Server {
                                             score = Integer.parseInt(fromClient.readLine());
                                         Database.reviewRecord(review, score);
                                     } else
-                                        toClient.println("No submitted records or record review in progress");
+                                        toClient.println("No submitted records, or record review in progress");
                                 } else
                                     toClient.println("User lacks admin permissions");
                             } else

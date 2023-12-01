@@ -47,8 +47,8 @@ public class SubmitRecordMenu {
             if (response.equals("Record Submitted")) {
                 responseMessage.setForeground(Color.GREEN);
                 categoryList.setEnabled(false);
-                description.setEnabled(false);
-                proof.setEnabled(false);
+                description.setEditable(false);
+                proof.setEditable(false);
                 submitButton.setEnabled(false);
             }
             else
