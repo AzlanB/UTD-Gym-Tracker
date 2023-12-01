@@ -8,7 +8,8 @@ import java.security.NoSuchAlgorithmException;
 public class RegistrationMenu {
     RegistrationMenu(PrintWriter toServer, BufferedReader fromServer) {
         JLabel usernamePrompt = new JLabel("Enter Username (UTD Email)"), passwordPrompt = new JLabel("Enter Password"), retypePrompt = new JLabel("Retype Password");
-        JTextField username = new JTextField(), password = new JTextField(), retype = new JTextField();
+        JTextField username = new JTextField();
+        JPasswordField password = new JPasswordField(), retype = new JPasswordField();
         usernamePrompt.setBounds(50, 10, 300, 20);
         username.setBounds(50, 30, 300, 20);
         passwordPrompt.setBounds(50, 60, 300, 20);
@@ -22,7 +23,7 @@ public class RegistrationMenu {
         registerButton.setBounds(125,160,150,20);
         registerButton.addActionListener(e -> {
             String response;
-            String pwd = password.getText();
+            String pwd = String.valueOf(password.getPassword());
             responseMessage.setBounds(0,190,400,20);
             if (username.getText().contains("\n") || username.getText().length() < 1)
                 response = "Invalid Username";
@@ -46,7 +47,7 @@ public class RegistrationMenu {
                 if (response.length() == 60)
                     responseMessage.setBounds(-5,190,400,20);
             }
-            else if (!pwd.equals(retype.getText()))
+            else if (!pwd.equals(String.valueOf(retype.getPassword())))
                 response = "Retyped password must match password";
             else {
                 try {

@@ -8,7 +8,8 @@ import java.security.NoSuchAlgorithmException;
 public class LoginMenu {
     LoginMenu(PrintWriter toServer, BufferedReader fromServer) {
         JLabel usernamePrompt = new JLabel("Enter Username (UTD Email)"), passwordPrompt = new JLabel("Enter Password");
-        JTextField username = new JTextField(), password = new JTextField();
+        JTextField username = new JTextField();
+        JPasswordField password = new JPasswordField();
         usernamePrompt.setBounds(50, 10, 300, 20);
         username.setBounds(50,30,300,20);
         passwordPrompt.setBounds(50, 60, 300, 20);
@@ -24,11 +25,11 @@ public class LoginMenu {
             String response;
             if (username.getText().contains("\n") || username.getText().length() < 1)
                 response = "Invalid Username";
-            else if (password.getText().contains("\n") || password.getText().length() < 1)
+            else if (String.valueOf(password.getPassword()).contains("\n") || String.valueOf(password.getPassword()).length() < 1)
                 response = "Invalid Password";
             else {
                 try {
-                    String hashedPassword = username.getText() + password.getText();
+                    String hashedPassword = username.getText() + String.valueOf(password.getPassword());
                     MessageDigest mD = MessageDigest.getInstance("SHA-256");
                     mD.update(hashedPassword.getBytes());
                     hashedPassword = new String(mD.digest());
