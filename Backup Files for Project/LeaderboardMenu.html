@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard Menu</title>
+    <link rel="stylesheet" href="LeadboardMenuHelper.css">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">
+        <img src="https://brand.utdallas.edu/files/UTDmono_rev.png" alt="UTD Logo">
+    </div>
+    <nav class="menu" id="menu">
+        <ul>
+            <li><button onclick="showLeaderboard('Bench')">Bench</button></li>
+            <li><button onclick="showLeaderboard('Squat')">Squat</button></li>
+            <li><button onclick="showLeaderboard('Deadlift')">Deadlift</button></li>
+            <li><button onclick="showLeaderboard('PushUp')">Push-up</button></li>
+            <!-- Add more buttons as needed -->
+        </ul>
+    </nav>
+    <div class="home-button">
+        <button onclick="navigateToHomePage()">Home</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="leaderboard-container" id="leaderboardContainer">
+        <!-- Leaderboards will be dynamically added here -->
+    </div>
+</div>
+
+<script src="leaderboardScript.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+<!--https://brand.utdallas.edu/files/UTDmono_rev.png
